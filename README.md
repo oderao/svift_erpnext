@@ -1,7 +1,6 @@
 ## Svift Erpnext
 
-customization for the svift app[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D
-
+erpnext customization for the svift app
 #### License
 
 MIT
