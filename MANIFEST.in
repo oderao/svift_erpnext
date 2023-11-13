@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include svift_erpnext *.css
+recursive-include svift_erpnext *.csv
+recursive-include svift_erpnext *.html
+recursive-include svift_erpnext *.ico
+recursive-include svift_erpnext *.js
+recursive-include svift_erpnext *.json
+recursive-include svift_erpnext *.md
+recursive-include svift_erpnext *.png
+recursive-include svift_erpnext *.py
+recursive-include svift_erpnext *.svg
+recursive-include svift_erpnext *.txt
+recursive-exclude svift_erpnext *.pyc
