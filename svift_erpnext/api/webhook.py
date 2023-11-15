@@ -51,7 +51,8 @@ def update_purchase_order(*args,**kwargs):
         frappe.local.response["message"] = "Webhook Received"
         frappe.log_error("update_po", frappe.get_traceback())        
 
-           
-{"doctype":"Purchase Order","purchase_order_number":"PUR-ORD-2023-00001","items":
-[{"parenttype":"Purchase Order","parentfield":"items","item_code":"Test-BLU-L-SK","qty":"2","rate":"199.50"},
-{"parenttype":"Purchase Order","parentfield":"items","item_code":"Test-BLU-S-SK","qty":"10","rate":"246.75"}]}               
+
+def update_linked_purchase_invoice(po_number):
+    
+    if frappe.db.exists("Purchase Invoice",{}):
+        pass
