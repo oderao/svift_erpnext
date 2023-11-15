@@ -19,6 +19,7 @@ def update_purchase_order(*args,**kwargs):
                         p_item["base_rate"] = p_item["rate"]
                         doc = frappe.get_doc(p_item)
                         doc.flags.ignore_mandatory = True
+                        doc.flags.ignore_permissions = True
                         doc.save()
                         po_items.append(doc)
                 po_doc.items = po_items
