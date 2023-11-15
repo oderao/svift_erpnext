@@ -25,7 +25,7 @@ def update_purchase_order(*args,**kwargs):
                         po_items.append(doc)
                 if kwargs.get("taxes"):
                     for tax in kwargs.get("taxes"):
-                        tax["doctype"] = ""
+                        tax["doctype"] = "Purchase Taxes and Charges"
                         tax["parent"] = po_number
                         tax_doc = frappe.get_doc(tax)
                         tax_doc.flags.ignore_mandatory = True
@@ -47,8 +47,8 @@ def update_purchase_order(*args,**kwargs):
                 frappe.local.response['data'] = {"server":"purchase order_does not exist"}
                 frappe.local.response["message"] = "Webhook Received"
     except Exception as e:
-        frappe.local.response["status_code"] = 200
-        frappe.local.response["message"] = "Webhook Received"
+        frappe.local.response["status_code"] = 500
+        frappe.local.response["message"] = "Error Updating PO, Please check error logs"
         frappe.log_error("update_po", frappe.get_traceback())        
 
 
