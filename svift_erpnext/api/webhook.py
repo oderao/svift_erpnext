@@ -28,10 +28,10 @@ def update_purchase_order(*args,**kwargs):
                 frappe.local.response["http_status_code"] = 200
                 frappe.local.response['data'] = {"server":"Webhook Received and Processed"}
                 frappe.local.response['_server_messages'] = "Webhook Received and Processed"
-        else:
-            frappe.local.response["http_status_code"] = 404
-            frappe.local.response['data'] = {"server":"purchase order_does not exist"}
-            frappe.local.response["message"] = "Webhook Received"
+            else:
+                frappe.local.response["http_status_code"] = 404
+                frappe.local.response['data'] = {"server":"purchase order_does not exist"}
+                frappe.local.response["message"] = "Webhook Received"
     except Exception as e:
         frappe.local.response["status_code"] = 200
         frappe.local.response["message"] = "Webhook Received"
