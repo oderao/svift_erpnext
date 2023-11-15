@@ -2,6 +2,8 @@ import frappe
 @frappe.whitelist()
 def update_purchase_order(*args,**kwargs):
     """update items table in a purchase order"""
+    frappe.log_error("args",args)
+    frappe.log_error("kwargs", kwargs)
     try:
         if kwargs.get("purchase_order_number"):
             #check if purchase order is existing
