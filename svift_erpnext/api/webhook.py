@@ -32,13 +32,13 @@ def update_purchase_order(*args,**kwargs):
                         tax_doc.flags.ignore_permissions = True
                         tax_doc.save()
                         tax_doc_items.append(tax)
-                    
+                
+                po_doc.reload()
                 po_doc.items = po_items
                 po_doc.taxes = tax_doc_items
                 po_doc.flags.ignore_validate_update_after_submit=True
                 po_doc.flags.ignore_mandatory = True
                 po_doc.flags.ignore_permissions = True
-                po_doc.reload()
                 po_doc.save()
                 frappe.local.response["http_status_code"] = 200
                 frappe.local.response['data'] = {"server":"Webhook Received and Processed"}
