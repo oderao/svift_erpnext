@@ -51,7 +51,6 @@ def update_purchase_order(*args,**kwargs):
         frappe.local.response["message"] = "Webhook Received"
         frappe.log_error("update_po", frappe.get_traceback())        
 
-Array ( [parenttype] => Purchase Order [parentfield] => taxes [charge_type] => On Net Total [description] => VAT 5% @ 5.0 [account_head] => VAT 5% - S [rate] => 5 [included_in_print_rate] => 1 ) )
            
 {"doctype":"Purchase Order","purchase_order_number":"PUR-ORD-2023-00001","items":
 [{"parenttype":"Purchase Order","parentfield":"items","item_code":"Test-BLU-L-SK","qty":"2","rate":"199.50"},
