@@ -7,9 +7,24 @@ def update_purchase_order(*args,**kwargs):
     try:
         if kwargs.get("purchase_order_number"):
             #check if purchase order is existing
+            current_user = frappe.session.user
+            frappe.session.user = "Administrator"
             po_number = kwargs.get("purchase_order_number")
             if frappe.db.exists("Purchase Order", po_number):
                 po_doc = frappe.get_doc("Purchase Order", po_number)
+                if po_doc.items:
+                    #delete existing items
+                    existing_items = frappe.get_all("Purchase Order Item",{"parent":po_number})
+                    if existing_items:
+                        for doc in existing_items:
+                            frappe.db.delete("Purchase Order Item", doc.get("name"))
+                    
+                if po_doc.taxes:
+                    existing_taxes = frappe.get_all("Purchase Taxes and Charges",{"parent":po_number})
+                    if existing_taxes:
+                        for doc in existing_taxes:
+                            frappe.db.delete("Purchase Taxes and Charges",doc.get("name"))
+                        
                 po_items = []
                 tax_doc_items = []
                 if kwargs.get("items"):
@@ -23,6 +38,7 @@ def update_purchase_order(*args,**kwargs):
                         doc.flags.ignore_permissions = True
                         doc.save()
                         po_items.append(doc)
+                
                 if kwargs.get("taxes"):
                     for tax in kwargs.get("taxes"):
                         tax["doctype"] = "Purchase Taxes and Charges"
@@ -33,13 +49,17 @@ def update_purchase_order(*args,**kwargs):
                         tax_doc.save()
                         tax_doc_items.append(tax)
                 
-                po_doc.reload()
+                # po_doc.reload()
+                frappe.log_error("taxes",tax_doc_items)
                 po_doc.items = po_items
+                frappe.log_error("items",po_items)
                 po_doc.taxes = tax_doc_items
+                
+               
                 po_doc.flags.ignore_validate_update_after_submit=True
                 po_doc.flags.ignore_mandatory = True
                 po_doc.flags.ignore_permissions = True
-                po_doc.save()
+                frappe.db.commit()
                 frappe.local.response["http_status_code"] = 200
                 frappe.local.response['data'] = {"server":"Webhook Received and Processed"}
                 frappe.local.response['_server_messages'] = "Webhook Received and Processed"
