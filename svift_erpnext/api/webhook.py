@@ -55,6 +55,10 @@ def update_purchase_order(*args,**kwargs):
                 
                 frappe.db.set_value("Purchase Order",po_number, "net_total", kwargs.get("net_total"))
                 frappe.db.set_value("Purchase Order",po_number, "total", kwargs.get("total"))
+                frappe.db.set_value("Purchase Order",po_number, "grand_total", kwargs.get("total"))
+                frappe.db.set_value("Purchase Order",po_number, "taxes_and_charges_added", kwargs.get("tax_amount"))
+                frappe.db.set_value("Purchase Order",po_number, "total_taxes_and_charges", kwargs.get("tax_amount"))
+                
                 
                 po_doc.flags.ignore_validate_update_after_submit=True
                 po_doc.flags.ignore_mandatory = True
