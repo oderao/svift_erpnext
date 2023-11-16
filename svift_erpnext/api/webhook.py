@@ -50,12 +50,12 @@ def update_purchase_order(*args,**kwargs):
                         tax_doc_items.append(tax)
                 
                 # po_doc.reload()
-                frappe.log_error("taxes",tax_doc_items)
                 po_doc.items = po_items
-                frappe.log_error("items",po_items)
                 po_doc.taxes = tax_doc_items
                 
-               
+                frappe.db.set_value("Purchase Order",po_number, "net_total", kwargs.get("net_total"))
+                frappe.db.set_value("Purchase Order",po_number, "total", kwargs.get("total"))
+                
                 po_doc.flags.ignore_validate_update_after_submit=True
                 po_doc.flags.ignore_mandatory = True
                 po_doc.flags.ignore_permissions = True
